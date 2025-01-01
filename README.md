@@ -4,6 +4,8 @@
 
 When a sprite is rotating, the collision detection goes crazy.
 
+![Example of rotation sprite tunneling](crazy-rotation-collision.gif)
+
 ## How to Reproduce
 
 * The player is directed using the crank.
