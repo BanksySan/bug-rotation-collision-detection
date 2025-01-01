@@ -3,25 +3,41 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/ui"
 
+import "Wall"
+import "Player"
+
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
-local message = 'Hello World!'
-local messageWidth, messageHeight = gfx.getTextSize(message)
+function createTiledWall()
+    local tileWidth <const> = 16
+    local tileHeight <const> = 16
 
-local image = gfx.image.new(messageWidth, messageHeight)
-gfx.pushContext(image)
-gfx.drawText(message, 0, 0, messageWidth, messageHeight, nil, nil, nil)
-gfx.popContext(image)
+    local xCount <const> = 12
+    local yCount <const> = 12
 
-local sprite = gfx.sprite.new()
-sprite:setImage(image)
-sprite:moveTo(10,10)
-sprite:setZIndex(500)
-sprite:setScale(2)
-sprite:setCenter(0,0)
-sprite:add()
+    local xOffset <const> = 64
+    local yOffset <const> = 32
 
+    local xStop = xOffset + (tileWidth * (xCount - 1))
+    local xStep = tileWidth
+
+    local yStop = yOffset + (tileHeight * (yCount - 1))
+    local yStep = tileHeight
+
+    Wall(xOffset, yOffset, tileWidth, tileHeight)
+
+    for i = xOffset + tileWidth, xStop, xStep do
+        Wall(i, yOffset, tileWidth, tileHeight)
+    end
+
+    for j = yOffset + tileHeight, yStop, yStep do
+        Wall(xOffset, j, tileWidth, tileHeight)
+    end
+end
+
+createTiledWall()
+Player(124, 124, 1, false)
 function pd:update()
     gfx.clear()
     gfx.sprite.update()
