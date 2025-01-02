@@ -78,6 +78,11 @@ function Player:update()
     local yMovement = -math.cos(crankAngleRad) * self.speed
 
     self:moveWithCollisions(self.x + xMovement, self.y + yMovement)
+
+    self:setRotation(crankAngleDeg)
+    local _, _, offsetX, offsetY = self:getBounds()
+    offsetX, offsetY = offsetX * 0.5 - 16, offsetY * 0.5 - 16
+    self:setCollideRect(offsetX, offsetY, 32, 32)
 end
 
 
